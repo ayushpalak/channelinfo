@@ -108,16 +108,19 @@ class AutoComplete extends Component {
           }}
           renderOption={option => (
             <React.Fragment>
-              <p
-                style={{
-                  color: "#000067",
-                  fontWeight: "bold",
-                  fontSize: "x-medium",
-                  padding: "0px"
-                }}
-              >
-                {option.channel_name}
-              </p>
+              <div>
+                <p
+                  style={{
+                    color: "#000067",
+                    fontWeight: "bold",
+                    fontSize: "x-medium",
+                    padding: "0px",
+                    textTransform: "capitalize"
+                  }}
+                >
+                  {option.channel_name}
+                </p>
+              </div>
             </React.Fragment>
           )}
           renderInput={params => (
@@ -135,7 +138,7 @@ class AutoComplete extends Component {
             color: "#AAAAAA",
             textAlign: "center",
             width: "100%",
-            paddingTop: "40px",
+            paddingTop: "40px"
             // paddingBottom: "40px",
             // paddingLeft: "calc(50% - 300px)",
             // paddingRight: "calc(50% - 300px)",
@@ -149,7 +152,7 @@ class AutoComplete extends Component {
           <div
             style={{
               width: "100%",
-              paddingTop: "40px",
+              paddingTop: "40px"
               // paddingBottom: "40px",
               // paddingLeft: "calc(50% - 300px)",
               // paddingRight: "calc(50% - 300px)",
