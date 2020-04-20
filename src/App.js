@@ -15,7 +15,7 @@ function App() {
         style={{
           backgroundImage: "linear-gradient(#000067,#000000)",
           overflow: "auto",
-          height: "100vh"
+          height: "100vh",
         }}
       >
         {/* <Grid item>

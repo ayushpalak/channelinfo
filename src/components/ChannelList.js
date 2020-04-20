@@ -16,7 +16,10 @@ export default function ChannelList(props) {
         border: "2px solid white",
         borderRadius: "2px",
         marginLeft: "4%",
-        marginRight: "4%"
+        marginRight: "4%",
+        marginBottom: "4%",
+        overflow: "auto",
+
       }}
     >
       <ListItem button>

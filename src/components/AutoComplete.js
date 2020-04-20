@@ -104,6 +104,7 @@ class AutoComplete extends Component {
               this.setState({
                 channelObj: this.state.dropdownmenu[searchIndex]
               });
+              window.scrollTo(0, this.myInput.current.offsetTop);
             }
           }}
           renderOption={option => (
