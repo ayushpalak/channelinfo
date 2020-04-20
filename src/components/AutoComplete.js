@@ -201,7 +201,7 @@ const CssTextField = withStyles({
     "& .MuiInputBase-input": {
       color: "#000067",
       fontWeight: "bold",
-      fontSize: "x-large"
+      fontSize: "larger"
       // backgroundColor: "black"
     },
     // "& label": {
