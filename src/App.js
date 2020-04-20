@@ -9,47 +9,39 @@ function App() {
     <>
       <Grid
         container
-        direction="column"
+        direction="row"
         justify="center"
         alignItems="center"
         style={{
-          backgroundImage: "linear-gradient(#000067,#000000)"
+          backgroundImage: "linear-gradient(#000067,#000000)",
+          overflow: "auto",
+          height: "100vh"
         }}
       >
-        <Grid item>
+        {/* <Grid item>
           <Grid
             container
             direction="column"
             justify="flex-start"
             alignItems="flex-start"
           >
-            <div
+            <Icon
               style={{
-                // backgroundColor: "black",
-                height: window.innerHeight * 0.1,
-                width: window.innerWidth
+                color: "white",
+                marginTop: window.innerHeight * 0.04,
+                marginLeft: window.innerWidth * 0.05,
+                // float: "left"
               }}
             >
-              <Icon
-                style={{
-                  color: "white",
-                  marginTop: window.innerHeight * 0.04,
-                  marginLeft: window.innerWidth * 0.05
-                }}
-                onClick={() => alert("hi")}
-              >
-                home
-              </Icon>
-            </div>
+              home
+            </Icon>{" "}
           </Grid>
-        </Grid>
+        </Grid> */}
         <Grid
           item
           style={{
             // backgroundColor: "black",
-            width: "100%",
-            height: "100vh",
-            overflow: "auto"
+            width: "100%"
           }}
         >
           <Home />
