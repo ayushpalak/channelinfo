@@ -14,6 +14,8 @@ const source = CancelToken.source();
 class AutoComplete extends Component {
   constructor(props) {
     super(props);
+    this.myInput = React.createRef();
+
     this.state = {
       dropdownmenu: [
         {
@@ -72,6 +74,7 @@ class AutoComplete extends Component {
 
   componentDidMount = () => {
     this.getChannelData("");
+    console.log("width ", this.myInput.current.offsetWidth);
   };
 
   render() {
@@ -79,10 +82,12 @@ class AutoComplete extends Component {
     return (
       <>
         <Autocomplete
+          ref={this.myInput}
           id="combo-box-demo"
           options={this.state.dropdownmenu}
           style={{
-            width: window.innerWidth * 0.4,
+            // width: window.innerWidth * 0.4,
+            minWidth: 300,
             backgroundColor: "white",
             borderRadius: "5px"
           }}
@@ -125,19 +130,44 @@ class AutoComplete extends Component {
             />
           )}
         />
-        <h2 style={{ color: "#AAAAAA" }}>
+        <h2
+          style={{
+            color: "#AAAAAA",
+            textAlign: "center",
+            width: "100%",
+            paddingTop: "40px",
+            // paddingBottom: "40px",
+            // paddingLeft: "calc(50% - 300px)",
+            // paddingRight: "calc(50% - 300px)",
+            // margin: "0"
+          }}
+        >
           Find your favourite channel number on any setup box.{" "}
         </h2>
+
         {this.state.channelObj ? (
-          <ChannelList
-            airtel={this.state.channelObj.channel_numbers_arr_of_Obj.airtel}
-            videocon={this.state.channelObj.channel_numbers_arr_of_Obj.d2h}
-            dishtv={this.state.channelObj.channel_numbers_arr_of_Obj["dish tv"]}
-            suntv={this.state.channelObj.channel_numbers_arr_of_Obj["sun tv"]}
-            tatasky={
-              this.state.channelObj.channel_numbers_arr_of_Obj["tata sky"]
-            }
-          />
+          <div
+            style={{
+              width: "100%",
+              paddingTop: "40px",
+              // paddingBottom: "40px",
+              // paddingLeft: "calc(50% - 300px)",
+              // paddingRight: "calc(50% - 300px)",
+              // margin: "0"
+            }}
+          >
+            <ChannelList
+              airtel={this.state.channelObj.channel_numbers_arr_of_Obj.airtel}
+              videocon={this.state.channelObj.channel_numbers_arr_of_Obj.d2h}
+              dishtv={
+                this.state.channelObj.channel_numbers_arr_of_Obj["dish tv"]
+              }
+              suntv={this.state.channelObj.channel_numbers_arr_of_Obj["sun tv"]}
+              tatasky={
+                this.state.channelObj.channel_numbers_arr_of_Obj["tata sky"]
+              }
+            />
+          </div>
         ) : null}
       </>
     );

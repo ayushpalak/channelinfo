@@ -48,7 +48,8 @@ function App() {
           style={{
             // backgroundColor: "black",
             width: "100%",
-            height: window.innerHeight * 0.9
+            height: "100vh",
+            overflow: "auto"
           }}
         >
           <Home />
