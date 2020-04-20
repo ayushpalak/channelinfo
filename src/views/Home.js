@@ -35,12 +35,8 @@ class Home extends Component {
         > */}
         <Grid container direction="column" justify="center" alignItems="center">
           <h2 style={{ color: "white" }}> Find your channel </h2>
-          <AutoCompleteAsync />
-          {/* <AutoComplete></AutoComplete> */}
-          <h2 style={{ color: "#AAAAAA" }}>
-            {" "}
-            Find your favourite channel number on any setup box.{" "}
-          </h2>
+          {/* <AutoCompleteAsync /> */}
+          <AutoComplete></AutoComplete>
         </Grid>
       </>
     );

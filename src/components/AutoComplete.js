@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import { tatasky_channellist } from "./tatasky_channellist";
+import ChannelList from "./ChannelList";
 import "./AutoComplete";
 import axios from "axios";
 
@@ -21,7 +22,7 @@ class AutoComplete extends Component {
         }
       ],
       isCallActive: false,
-      selectedChannelName: ""
+      channelSelected: ""
     };
   }
 
@@ -45,34 +46,24 @@ class AutoComplete extends Component {
     return dropdownmenu;
   };
   getChannelData = name => {
-    if (!this.state.isCallActive) {
-      this.setState({ isCallActive: true });
-      axios
-        .get(
-          "https://channelinfo.pythonanywhere.com/?name=" +
-            encodeURIComponent(name),
-          {
-            cancelToken: source.token
-          }
-        )
-        .then(res => {
-          if (res.data.length != 0) {
-            this.setState({
-              dropdownmenu: this.buildMenu(res.data)
-            });
-          }
+    axios
+      .get("https://channelinfo.pythonanywhere.com/", {
+        cancelToken: source.token
+      })
+      .then(res => {
+        if (res.data.length != 0) {
           this.setState({
-            isCallActive: false
+            dropdownmenu: this.buildMenu(res.data)
           });
-        })
-        .catch(function(thrown) {
-          if (axios.isCancel(thrown)) {
-            console.log("Request canceled", thrown.message);
-          } else {
-            // handle error
-          }
-        });
-    }
+        }
+      })
+      .catch(function(thrown) {
+        if (axios.isCancel(thrown)) {
+          console.log("Request canceled", thrown.message);
+        } else {
+          // handle error
+        }
+      });
   };
 
   componentWillUnmount = () => {
@@ -86,59 +77,69 @@ class AutoComplete extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <Autocomplete
-        id="combo-box-demo"
-        options={this.state.dropdownmenu}
-        value={this.state.selectedChannelName}
-        // classes={classes.root}
-        getOptionLabel={option => option.channel_name}
-        getOptionSelected={(option, value) => {
-          console.log("option ", option);
-          console.log("channel ", value);
-          return option.channel_name === value;
-        }}
-        onInputChange={event =>
-          !this.state.isCallActive
-            ? this.getChannelData(event.target.value)
-            : {}
-        }
-        onChange={(event, value) => {
-          console.log("onChange event", event);
-          console.log("onChange value", value);
-          this.setState({
-            selectedChannelName: value !== null ? value.channel_name : ""
-          });
-        }}
-        // style={{ width: 300, backgroundColor: "black" }}
-        style={{
-          width: window.innerWidth * 0.4,
-          backgroundColor: "white",
-          borderRadius: "5px"
-        }}
-        renderOption={option => (
-          <React.Fragment>
-            <p
-              style={{
-                color: "#000067",
-                fontWeight: "bold",
-                fontSize: "x-medium",
-                padding: "0px"
-              }}
-            >
-              {option.channel_name}
-            </p>
-          </React.Fragment>
-        )}
-        renderInput={params => (
-          <CssTextField
-            {...params}
-            label=""
-            variant="outlined"
-            autoFocus={true}
-            placeholder="Enter Channel Name"
+      <>
+        <Autocomplete
+          id="combo-box-demo"
+          options={this.state.dropdownmenu}
+          style={{
+            width: window.innerWidth * 0.4,
+            backgroundColor: "white",
+            borderRadius: "5px"
+          }}
+          getOptionLabel={option => {
+            return option.channel_name;
+          }}
+          onChange={(event, value) => {
+            if (value) {
+              let searchIndex = this.state.dropdownmenu.findIndex(val => {
+                return val != null
+                  ? val.channel_name === value.channel_name
+                  : false;
+              });
+              this.setState({
+                channelObj: this.state.dropdownmenu[searchIndex]
+              });
+            }
+          }}
+          renderOption={option => (
+            <React.Fragment>
+              <p
+                style={{
+                  color: "#000067",
+                  fontWeight: "bold",
+                  fontSize: "x-medium",
+                  padding: "0px"
+                }}
+              >
+                {option.channel_name}
+              </p>
+            </React.Fragment>
+          )}
+          renderInput={params => (
+            <CssTextField
+              {...params}
+              label=""
+              variant="outlined"
+              autoFocus={true}
+              placeholder="Enter Channel Name"
+            />
+          )}
+        />
+        <h2 style={{ color: "#AAAAAA" }}>
+          Find your favourite channel number on any setup box.{" "}
+        </h2>
+        {this.state.channelObj ? (
+          <ChannelList
+            airtel={this.state.channelObj.channel_numbers_arr_of_Obj.airtel}
+            videocon={this.state.channelObj.channel_numbers_arr_of_Obj.d2h}
+            dishtv={this.state.channelObj.channel_numbers_arr_of_Obj["dish tv"]}
+            suntv={this.state.channelObj.channel_numbers_arr_of_Obj["sun tv"]}
+            tatasky={
+              this.state.channelObj.channel_numbers_arr_of_Obj["tata sky"]
+            }
           />
-        )}
-      />
+        ) : null}
+      </>
     );
   }
 }
